@@ -1,0 +1,19 @@
+[build-system]
+requires      = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name            = "mcp-cartographer"
+version         = "0.1.0"
+description     = "Codebase intelligence MCP server — maps any local git repository for Claude"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0",
+    "gitpython>=3.1",
+    "networkx>=3.0",
+    "radon>=6.0",
+    "pathspec>=0.12",
+]
+
+[project.scripts]
+mcp-cartographer = "server:mcp.run"
