@@ -14,13 +14,6 @@ _TIMEOUT = httpx.Timeout(10.0)
 
 
 @dataclass
-class VersionInfo:
-    latest: Optional[str]
-    is_outdated: bool
-    majors_behind: int
-
-
-@dataclass
 class Vuln:
     id: str
     summary: str

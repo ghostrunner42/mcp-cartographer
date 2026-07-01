@@ -127,29 +127,6 @@ def _from_docstring(metrics: FileMetrics) -> str | None:
     return None
 
 
-def _from_exports(metrics: FileMetrics) -> str | None:
-    exports = metrics.exports[:5]
-    if not exports:
-        return None
-    if len(exports) == 1:
-        return f"defines {exports[0]}"
-    return f"defines {', '.join(exports[:-1])} and {exports[-1]}"
-
-
-def summarize_file(metrics: FileMetrics) -> str:
-    name = metrics.path.name
-    if name in _KNOWN:
-        return _KNOWN[name]
-    doc = _from_docstring(metrics)
-    if doc:
-        return doc
-    exp = _from_exports(metrics)
-    if exp:
-        return exp
-    lang = metrics.language.lower()
-    return f"{lang} source ({metrics.lines} lines)"
-
-
 def summarize_dir(node: ModuleNode) -> str:
     name = node.path.name.lower()
 
