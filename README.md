@@ -14,17 +14,11 @@ Codebase intelligence MCP server for Claude. Point it at any local git repositor
 
 ## Why
 
-[GitHub MCP](https://github.com/github/github-mcp-server) requires code to be on GitHub. mcp-cartographer works on **any local git repo**, offline, with no account. It's built on top of [meekrab](https://github.com/ghostrunner42/meekrab), an ambient codebase intelligence suite.
+[GitHub MCP](https://github.com/github/github-mcp-server) requires code to be on GitHub. mcp-cartographer works on **any local git repo**, offline, with no account. It's fully standalone — no external intelligence engine required.
 
 ## Install
 
-**1. Install meekrab** (the underlying intelligence engine):
-
-```bash
-pip install git+https://github.com/ghostrunner42/meekrab.git
-```
-
-**2. Clone this repo:**
+**1. Clone this repo:**
 
 ```bash
 git clone https://github.com/ghostrunner42/mcp-cartographer.git
@@ -32,7 +26,7 @@ cd mcp-cartographer
 pip install -e .
 ```
 
-**3. Register with Claude Code:**
+**2. Register with Claude Code:**
 
 ```bash
 claude mcp add cartographer -s user -- python3 /path/to/mcp-cartographer/server.py
@@ -57,6 +51,7 @@ All paths accept `~` expansion and absolute paths.
 - `dead_code` works on Python codebases only. Decorator-registered functions (FastAPI, FastMCP) will show as "unreferenced" — this is a known static analysis limitation.
 - `hot_files` and `file_history` require git history. Returns empty on repos with no commits.
 - `repo_health` runs test suites if detected. On large repos this may take a few seconds.
+- `repo_health`'s dependency check (`drift`) queries PyPI/npm and OSV.dev for version/CVE data — requires network access; degrades gracefully (marks `dependencies.available: false`) if offline.
 
 ## License
 

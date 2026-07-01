@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name            = "mcp-cartographer"
-version         = "0.1.0"
+version         = "0.2.0"
 description     = "Codebase intelligence MCP server — maps any local git repository for Claude"
 requires-python = ">=3.10"
 dependencies = [
@@ -13,7 +13,18 @@ dependencies = [
     "networkx>=3.0",
     "radon>=6.0",
     "pathspec>=0.12",
+    "click>=8.1",
+    "rich>=13.0",
+    "httpx>=0.27",
+    "tomli>=2.0; python_version < '3.11'",
 ]
 
 [project.scripts]
 mcp-cartographer = "server:mcp.run"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cartographer*", "myth*", "ghost*", "drift*", "sentinel*"]
