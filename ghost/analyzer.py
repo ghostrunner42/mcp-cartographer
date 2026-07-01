@@ -10,7 +10,7 @@ from ghost.scanner import scan_python
 _ALWAYS_LIVE_DECORATORS = {
     "property", "staticmethod", "classmethod", "abstractmethod",
     "override", "pytest", "fixture", "mark",
-    "app", "router", "blueprint",       # web frameworks
+    "app", "router", "blueprint", "mcp",  # web frameworks / FastMCP
     "task", "shared_task", "periodic",  # Celery
     "command", "group", "option", "argument",  # Click
     "signal_handler",

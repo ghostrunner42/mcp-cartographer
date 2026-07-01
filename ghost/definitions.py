@@ -20,16 +20,16 @@ class Symbol:
 def _decorator_names(node: ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef) -> list[str]:
     names = []
     for d in node.decorator_list:
-        if isinstance(d, ast.Name):
-            names.append(d.id)
-        elif isinstance(d, ast.Attribute):
-            names.append(d.attr)
-        elif isinstance(d, ast.Call):
-            func = d.func
-            if isinstance(func, ast.Name):
-                names.append(func.id)
-            elif isinstance(func, ast.Attribute):
-                names.append(func.attr)
+        expr = d.func if isinstance(d, ast.Call) else d
+        if isinstance(expr, ast.Name):
+            names.append(expr.id)
+        elif isinstance(expr, ast.Attribute):
+            # e.g. `@mcp.tool()` records both "tool" and "mcp" — registration
+            # decorators are usually `@<object>.<method>(...)`, and callers may
+            # recognize either the method name or the object's conventional name.
+            names.append(expr.attr)
+            if isinstance(expr.value, ast.Name):
+                names.append(expr.value.id)
     return names
 
 
